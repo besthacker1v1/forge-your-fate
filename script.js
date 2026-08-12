@@ -2832,7 +2832,7 @@ function finishCharacterCreation() {
 function showCharacterCard() {
 
     const race =
-        raceData[character.race];
+        races[character.race];
 
     const strength =
         strengthLevels[character.strength];
