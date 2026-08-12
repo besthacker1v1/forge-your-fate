@@ -863,6 +863,79 @@ const fightingSkillLevels = {
     }
 
 };
+const weapons = {
+
+    "Iron Sword": {
+        power: 100,
+        rarity: "Common",
+        type: "Sword",
+        description: "A simple but reliable blade."
+    },
+
+    "Katana": {
+        power: 250,
+        rarity: "Uncommon",
+        type: "Sword",
+        description: "A finely crafted curved blade designed for precision."
+    },
+
+    "Plasma Rifle": {
+        power: 1000,
+        rarity: "Rare",
+        type: "Energy Weapon",
+        description: "A futuristic weapon that fires concentrated plasma."
+    },
+
+    "Mjolnir": {
+        power: 100000,
+        rarity: "Legendary",
+        type: "Hammer",
+        description: "A mythical hammer capable of commanding devastating lightning."
+    },
+
+    "Excalibur": {
+        power: 150000,
+        rarity: "Legendary",
+        type: "Sword",
+        description: "A legendary blade said to possess immense supernatural power."
+    },
+
+    "Energy Staff": {
+        power: 50000,
+        rarity: "Epic",
+        type: "Staff",
+        description: "A staff capable of channeling enormous amounts of energy."
+    },
+
+    "Void Blade": {
+        power: 1000000,
+        rarity: "Mythic",
+        type: "Sword",
+        description: "A weapon forged from the mysterious energy of the void."
+    },
+
+    "Gravity Hammer": {
+        power: 500000,
+        rarity: "Mythic",
+        type: "Hammer",
+        description: "A weapon capable of manipulating gravitational forces."
+    },
+
+    "Starbreaker": {
+        power: 100000000,
+        rarity: "Divine",
+        type: "Greatsword",
+        description: "A legendary weapon said to possess the power to shatter stars."
+    },
+
+    "Genesis Spear": {
+        power: 1000000000,
+        rarity: "Divine",
+        type: "Spear",
+        description: "An ancient weapon capable of channeling primordial energy."
+    }
+
+};
 function showRaceCard() {
 
     const race = races[character.race];
@@ -2062,5 +2135,183 @@ function showFightingSkillCard() {
         .addEventListener(
             "click",
             showWeaponScreen
+        );
+}
+function showWeaponScreen() {
+
+    document.getElementById(
+        "fighting-skill-screen"
+    ).innerHTML = `
+
+        <section id="weapon-screen">
+
+            <h2>What is your weapon?</h2>
+
+            <div class="roulette">
+
+                <div id="weapon-display">
+                    READY
+                </div>
+
+            </div>
+
+            <button
+                id="spin-weapon"
+                class="spin-button">
+
+                SPIN
+
+            </button>
+
+        </section>
+
+    `;
+
+    document
+        .getElementById("spin-weapon")
+        .addEventListener(
+            "click",
+            spinWeapon
+        );
+}
+function spinWeapon() {
+
+    const weaponNames =
+        Object.keys(weapons);
+
+    const display =
+        document.getElementById(
+            "weapon-display"
+        );
+
+    const spinButton =
+        document.getElementById(
+            "spin-weapon"
+        );
+
+    spinButton.disabled = true;
+
+    let spins = 0;
+    const totalSpins = 45;
+
+    const interval = setInterval(() => {
+
+        const randomWeapon =
+            weaponNames[
+                Math.floor(
+                    Math.random() *
+                    weaponNames.length
+                )
+            ];
+
+        display.textContent =
+            randomWeapon;
+
+        spins++;
+
+        if (spins >= totalSpins) {
+
+            clearInterval(interval);
+
+            const finalWeapon =
+                weaponNames[
+                    Math.floor(
+                        Math.random() *
+                        weaponNames.length
+                    )
+                ];
+
+            display.textContent =
+                finalWeapon;
+
+            character.weapon =
+                finalWeapon;
+
+            console.log(
+                "Weapon selected:",
+                character
+            );
+
+            spinButton.disabled = false;
+
+            setTimeout(() => {
+                showWeaponCard();
+            }, 800);
+        }
+
+    }, 80);
+}
+function showWeaponCard() {
+
+    const weapon =
+        weapons[character.weapon];
+
+    document.getElementById(
+        "weapon-screen"
+    ).innerHTML = `
+
+        <div class="race-card">
+
+            <h2>
+                ${character.weapon}
+            </h2>
+
+            <p class="race-description">
+                ${weapon.description}
+            </p>
+
+            <div class="race-stats">
+
+                <div>
+
+                    <span>TYPE</span>
+
+                    <strong>
+                        ${weapon.type}
+                    </strong>
+
+                </div>
+
+                <div>
+
+                    <span>RARITY</span>
+
+                    <strong>
+                        ${weapon.rarity}
+                    </strong>
+
+                </div>
+
+                <div>
+
+                    <span>POWER</span>
+
+                    <strong>
+                        ${weapon.power.toLocaleString()}
+                    </strong>
+
+                </div>
+
+            </div>
+
+            <button
+                id="continue-weapon"
+                class="spin-button">
+
+                CONTINUE
+
+            </button>
+
+        </div>
+
+    `;
+
+    document
+        .getElementById(
+            "continue-weapon"
+        )
+        .addEventListener(
+            "click",
+            showWeaponMasteryScreen
         );
 }

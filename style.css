@@ -260,3 +260,8 @@ h2 {
     font-weight: bold;
     letter-spacing: 3px;
 }
+#weapon-display {
+    font-size: 2.5rem;
+    font-weight: bold;
+    letter-spacing: 3px;
+}
