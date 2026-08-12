@@ -12,6 +12,7 @@ let character = {
     iq: null,
     fightingSkill: null,
     weapons: null,
+    weaponMastery: null,
 };
 const races = {
 
@@ -933,6 +934,59 @@ const weapons = {
         rarity: "Divine",
         type: "Spear",
         description: "An ancient weapon capable of channeling primordial energy."
+    }
+
+};
+const weaponMasteryLevels = {
+
+    "Unfamiliar": {
+        mastery: 0.25,
+        description: "You barely understand how to use the weapon."
+    },
+
+    "Novice": {
+        mastery: 0.5,
+        description: "You understand the basic functions of the weapon."
+    },
+
+    "Apprentice": {
+        mastery: 0.75,
+        description: "You have begun developing proper technique."
+    },
+
+    "Skilled": {
+        mastery: 1.0,
+        description: "You can use the weapon effectively."
+    },
+
+    "Expert": {
+        mastery: 1.5,
+        description: "You can perform advanced techniques with the weapon."
+    },
+
+    "Master": {
+        mastery: 2.0,
+        description: "You have exceptional control over the weapon."
+    },
+
+    "Grandmaster": {
+        mastery: 3.0,
+        description: "Your weapon technique is extraordinarily refined."
+    },
+
+    "Legendary": {
+        mastery: 5.0,
+        description: "Your mastery has reached legendary levels."
+    },
+
+    "Mythical": {
+        mastery: 10.0,
+        description: "Your technique transcends conventional combat."
+    },
+
+    "Perfect": {
+        mastery: 25.0,
+        description: "You possess near-perfect mastery of the weapon."
     }
 
 };
