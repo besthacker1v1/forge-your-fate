@@ -13,6 +13,7 @@ let character = {
     fightingSkill: null,
     weapons: null,
     weaponMastery: null,
+    title: null
 };
 const races = {
 
@@ -987,6 +988,93 @@ const weaponMasteryLevels = {
     "Perfect": {
         mastery: 25.0,
         description: "You possess near-perfect mastery of the weapon."
+    }
+
+};
+const titles = {
+
+    "The Wanderer": {
+        reputation: 20,
+        bonus: "Exploration",
+        description: "A traveler who has crossed countless lands."
+    },
+
+    "The Hero": {
+        reputation: 70,
+        bonus: "Courage",
+        description: "A champion known for protecting others."
+    },
+
+    "The Conqueror": {
+        reputation: 90,
+        bonus: "Leadership",
+        description: "A ruler who has conquered powerful territories."
+    },
+
+    "The Mind Breaker": {
+        reputation: 80,
+        bonus: "Psychological Warfare",
+        description: "A master of manipulating and breaking the minds of opponents."
+    },
+
+    "The Beast Slayer": {
+        reputation: 75,
+        bonus: "Beast Combat",
+        description: "A legendary hunter of dangerous creatures."
+    },
+
+    "The Last Guardian": {
+        reputation: 85,
+        bonus: "Defense",
+        description: "The final protector of something ancient and important."
+    },
+
+    "The Immortal": {
+        reputation: 95,
+        bonus: "Survival",
+        description: "A being who has survived countless ages."
+    },
+
+    "The Tyrant": {
+        reputation: 90,
+        bonus: "Intimidation",
+        description: "A feared ruler who dominates those around them."
+    },
+
+    "The Genius": {
+        reputation: 75,
+        bonus: "Strategy",
+        description: "A legendary intellect recognized throughout the world."
+    },
+
+    "The Dragon Rider": {
+        reputation: 85,
+        bonus: "Beast Bond",
+        description: "One who has earned the trust of a legendary dragon."
+    },
+
+    "The World Eater": {
+        reputation: 100,
+        bonus: "Destruction",
+        description: "A terrifying being associated with planetary destruction."
+    },
+
+    "The Starborn": {
+        reputation: 100,
+        bonus: "Cosmic Awareness",
+        description: "A mysterious being connected to the stars themselves."
+    },
+
+    "The God Slayer": {
+        reputation: 100,
+        bonus: "Divine Combat",
+        description: "A warrior who has defeated beings worshipped as gods."
+    },
+
+    "The Nameless One": {
+        reputation: 60,
+        bonus: "Unknown",
+        description: "A mysterious figure whose true identity has been forgotten."
     }
 
 };
@@ -2367,5 +2455,343 @@ function showWeaponCard() {
         .addEventListener(
             "click",
             showWeaponMasteryScreen
+        );
+}
+function showWeaponMasteryScreen() {
+
+    document.getElementById(
+        "weapon-screen"
+    ).innerHTML = `
+
+        <section id="weapon-mastery-screen">
+
+            <h2>How well do you master your weapon?</h2>
+
+            <div class="roulette">
+
+                <div id="weapon-mastery-display">
+                    READY
+                </div>
+
+            </div>
+
+            <button
+                id="spin-weapon-mastery"
+                class="spin-button">
+
+                SPIN
+
+            </button>
+
+        </section>
+
+    `;
+
+    document
+        .getElementById("spin-weapon-mastery")
+        .addEventListener(
+            "click",
+            spinWeaponMastery
+        );
+}
+function spinWeaponMastery() {
+
+    const masteryNames =
+        Object.keys(weaponMasteryLevels);
+
+    const display =
+        document.getElementById(
+            "weapon-mastery-display"
+        );
+
+    const spinButton =
+        document.getElementById(
+            "spin-weapon-mastery"
+        );
+
+    spinButton.disabled = true;
+
+    let spins = 0;
+    const totalSpins = 40;
+
+    const interval = setInterval(() => {
+
+        const randomMastery =
+            masteryNames[
+                Math.floor(
+                    Math.random() *
+                    masteryNames.length
+                )
+            ];
+
+        display.textContent =
+            randomMastery;
+
+        spins++;
+
+        if (spins >= totalSpins) {
+
+            clearInterval(interval);
+
+            const finalMastery =
+                masteryNames[
+                    Math.floor(
+                        Math.random() *
+                        masteryNames.length
+                    )
+                ];
+
+            display.textContent =
+                finalMastery;
+
+            character.weaponMastery =
+                finalMastery;
+
+            console.log(
+                "Weapon mastery selected:",
+                character
+            );
+
+            spinButton.disabled = false;
+
+            setTimeout(() => {
+                showWeaponMasteryCard();
+            }, 800);
+        }
+
+    }, 80);
+}
+function showWeaponMasteryCard() {
+
+    const mastery =
+        weaponMasteryLevels[
+            character.weaponMastery
+        ];
+
+    document.getElementById(
+        "weapon-mastery-screen"
+    ).innerHTML = `
+
+        <div class="race-card">
+
+            <h2>
+                ${character.weaponMastery}
+            </h2>
+
+            <p class="race-description">
+                ${mastery.description}
+            </p>
+
+            <div class="race-stats">
+
+                <div>
+
+                    <span>WEAPON</span>
+
+                    <strong>
+                        ${character.weapon}
+                    </strong>
+
+                </div>
+
+                <div>
+
+                    <span>MASTERY</span>
+
+                    <strong>
+                        ×${mastery.mastery}
+                    </strong>
+
+                </div>
+
+            </div>
+
+            <button
+                id="continue-weapon-mastery"
+                class="spin-button">
+
+                CONTINUE
+
+            </button>
+
+        </div>
+
+    `;
+
+    document
+        .getElementById(
+            "continue-weapon-mastery"
+        )
+        .addEventListener(
+            "click",
+            showTitleScreen
+        );
+}
+function showTitleScreen() {
+
+    document.getElementById(
+        "weapon-mastery-screen"
+    ).innerHTML = `
+
+        <section id="title-screen">
+
+            <h2>What will they call you?</h2>
+
+            <div class="roulette">
+
+                <div id="title-display">
+                    READY
+                </div>
+
+            </div>
+
+            <button
+                id="spin-title"
+                class="spin-button">
+
+                SPIN
+
+            </button>
+
+        </section>
+
+    `;
+
+    document
+        .getElementById("spin-title")
+        .addEventListener(
+            "click",
+            spinTitle
+        );
+}
+function spinTitle() {
+
+    const titleNames =
+        Object.keys(titles);
+
+    const display =
+        document.getElementById(
+            "title-display"
+        );
+
+    const spinButton =
+        document.getElementById(
+            "spin-title"
+        );
+
+    spinButton.disabled = true;
+
+    let spins = 0;
+    const totalSpins = 45;
+
+    const interval = setInterval(() => {
+
+        const randomTitle =
+            titleNames[
+                Math.floor(
+                    Math.random() *
+                    titleNames.length
+                )
+            ];
+
+        display.textContent =
+            randomTitle;
+
+        spins++;
+
+        if (spins >= totalSpins) {
+
+            clearInterval(interval);
+
+            const finalTitle =
+                titleNames[
+                    Math.floor(
+                        Math.random() *
+                        titleNames.length
+                    )
+                ];
+
+            display.textContent =
+                finalTitle;
+
+            character.title =
+                finalTitle;
+
+            console.log(
+                "Title selected:",
+                character
+            );
+
+            spinButton.disabled = false;
+
+            setTimeout(() => {
+                showTitleCard();
+            }, 800);
+        }
+
+    }, 80);
+}
+function showTitleCard() {
+
+    const title =
+        titles[character.title];
+
+    document.getElementById(
+        "title-screen"
+    ).innerHTML = `
+
+        <div class="race-card">
+
+            <h2>
+                ${character.title}
+            </h2>
+
+            <p class="race-description">
+                ${title.description}
+            </p>
+
+            <div class="race-stats">
+
+                <div>
+
+                    <span>REPUTATION</span>
+
+                    <strong>
+                        ${title.reputation}
+                    </strong>
+
+                </div>
+
+                <div>
+
+                    <span>SPECIALTY</span>
+
+                    <strong>
+                        ${title.bonus}
+                    </strong>
+
+                </div>
+
+            </div>
+
+            <button
+                id="continue-title"
+                class="spin-button">
+
+                CONTINUE
+
+            </button>
+
+        </div>
+
+    `;
+
+    document
+        .getElementById(
+            "continue-title"
+        )
+        .addEventListener(
+            "click",
+            finishCharacterCreation
         );
 }
