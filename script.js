@@ -2795,3 +2795,225 @@ function showTitleCard() {
             finishCharacterCreation
         );
 }
+function finishCharacterCreation() {
+
+    console.log("CHARACTER CREATED");
+    console.log(character);
+
+    document.getElementById("title-screen").innerHTML = `
+
+        <section id="character-complete">
+
+            <h2>YOUR FATE HAS BEEN FORGED</h2>
+
+            <p class="subtitle">
+                Your character has been created.
+            </p>
+
+            <button
+                id="view-character"
+                class="spin-button">
+
+                VIEW CHARACTER
+
+            </button>
+
+        </section>
+
+    `;
+
+    document
+        .getElementById("view-character")
+        .addEventListener(
+            "click",
+            showCharacterCard
+        );
+}
+function showCharacterCard() {
+
+    const race =
+        raceData[character.race];
+
+    const strength =
+        strengthLevels[character.strength];
+
+    const speed =
+        speedLevels[character.speed];
+
+    const durability =
+        durabilityLevels[character.durability];
+
+    const iq =
+        iqLevels[character.iq];
+
+    const fighting =
+        fightingSkillLevels[
+            character.fightingSkill
+        ];
+
+    const weapon =
+        weapons[character.weapon];
+
+    const mastery =
+        weaponMasteryLevels[
+            character.weaponMastery
+        ];
+
+    const title =
+        titles[character.title];
+
+    document.getElementById(
+        "character-complete"
+    ).innerHTML = `
+
+        <div class="character-card">
+
+            <div class="character-art-placeholder">
+
+                <div>
+                    CHARACTER ART
+                </div>
+
+                <small>
+                    AI artwork will appear here
+                </small>
+
+            </div>
+
+            <div class="character-card-content">
+
+                <p class="card-label">
+                    FORGE YOUR FATE
+                </p>
+
+                <h1>
+                    ${character.name}
+                </h1>
+
+                <h2>
+                    ${character.title}
+                </h2>
+
+                <div class="character-identity">
+
+                    <span>
+                        ${character.gender}
+                    </span>
+
+                    <span>
+                        ${character.race}
+                    </span>
+
+                    <span>
+                        ${character.age} YEARS
+                    </span>
+
+                    <span>
+                        ${character.height}
+                    </span>
+
+                </div>
+
+                <div class="character-stats">
+
+                    <div>
+                        <span>STRENGTH</span>
+                        <strong>
+                            ${character.strength}
+                        </strong>
+                    </div>
+
+                    <div>
+                        <span>SPEED</span>
+                        <strong>
+                            ${character.speed}
+                        </strong>
+                    </div>
+
+                    <div>
+                        <span>DURABILITY</span>
+                        <strong>
+                            ${character.durability}
+                        </strong>
+                    </div>
+
+                    <div>
+                        <span>IQ</span>
+                        <strong>
+                            ${character.iq}
+                        </strong>
+                    </div>
+
+                    <div>
+                        <span>COMBAT</span>
+                        <strong>
+                            ${character.fightingSkill}
+                        </strong>
+                    </div>
+
+                    <div>
+                        <span>WEAPON</span>
+                        <strong>
+                            ${character.weapon}
+                        </strong>
+                    </div>
+
+                    <div>
+                        <span>MASTERY</span>
+                        <strong>
+                            ${character.weaponMastery}
+                        </strong>
+                    </div>
+
+                    <div>
+                        <span>REPUTATION</span>
+                        <strong>
+                            ${title.reputation}
+                        </strong>
+                    </div>
+
+                </div>
+
+                <div class="character-details">
+
+                    <h3>BACKGROUND</h3>
+
+                    <p>
+                        ${character.background}
+                    </p>
+
+                    <h3>PERSONALITY</h3>
+
+                    <p>
+                        ${character.personality}
+                    </p>
+
+                    <h3>RACE</h3>
+
+                    <p>
+                        ${race.description}
+                    </p>
+
+                </div>
+
+                <button
+                    id="begin-adventure"
+                    class="spin-button">
+
+                    BEGIN YOUR FATE
+
+                </button>
+
+            </div>
+
+        </div>
+
+    `;
+
+    document
+        .getElementById("begin-adventure")
+        .addEventListener(
+            "click",
+            startAdventure
+        );
+}

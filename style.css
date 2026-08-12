@@ -275,3 +275,117 @@ h2 {
     font-weight: bold;
     letter-spacing: 3px;
 }
+.character-card {
+    width: 95%;
+    max-width: 850px;
+    margin: 30px auto;
+    background: #0d0d0d;
+    border: 1px solid #333;
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 0 50px rgba(255, 255, 255, 0.08);
+}
+
+.character-art-placeholder {
+    height: 420px;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    background: #080808;
+
+    border-bottom: 1px solid #333;
+
+    font-size: 2rem;
+    font-weight: bold;
+    letter-spacing: 4px;
+}
+
+.character-art-placeholder small {
+    margin-top: 15px;
+    color: #555;
+    font-size: 0.8rem;
+    letter-spacing: 1px;
+}
+
+.character-card-content {
+    padding: 40px;
+}
+
+.card-label {
+    color: #777;
+    letter-spacing: 4px;
+    font-size: 0.75rem;
+}
+
+.character-card h1 {
+    margin: 10px 0;
+    font-size: 3rem;
+    letter-spacing: 5px;
+}
+
+.character-card h2 {
+    color: #00d9ff;
+    font-size: 1.2rem;
+    margin-bottom: 25px;
+}
+
+.character-identity {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 30px;
+}
+
+.character-identity span {
+    padding: 8px 14px;
+    background: #151515;
+    border-radius: 20px;
+    color: #aaa;
+}
+
+.character-stats {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+}
+
+.character-stats div {
+    padding: 18px;
+    background: #080808;
+    border: 1px solid #222;
+    border-radius: 10px;
+}
+
+.character-stats span {
+    display: block;
+    color: #666;
+    font-size: 0.7rem;
+    letter-spacing: 2px;
+    margin-bottom: 8px;
+}
+
+.character-stats strong {
+    font-size: 1.1rem;
+}
+
+.character-details {
+    margin-top: 30px;
+    text-align: left;
+}
+
+.character-details h3 {
+    color: #666;
+    font-size: 0.75rem;
+    letter-spacing: 3px;
+    margin-top: 20px;
+    margin-bottom: 8px;
+}
+
+.character-details p {
+    color: #ccc;
+    line-height: 1.6;
+}
