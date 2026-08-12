@@ -805,6 +805,64 @@ const iqLevels = {
     }
 
 };
+const fightingSkillLevels = {
+
+    "Untrained": {
+        skill: 10,
+        description: "Has little to no knowledge of combat."
+    },
+
+    "Novice": {
+        skill: 25,
+        description: "Understands the basic principles of fighting."
+    },
+
+    "Amateur": {
+        skill: 50,
+        description: "Has some practical fighting experience."
+    },
+
+    "Trained": {
+        skill: 100,
+        description: "Has undergone proper combat training."
+    },
+
+    "Skilled": {
+        skill: 250,
+        description: "An experienced fighter capable of handling multiple opponents."
+    },
+
+    "Expert": {
+        skill: 500,
+        description: "Highly proficient in multiple combat techniques."
+    },
+
+    "Master": {
+        skill: 1000,
+        description: "A master capable of defeating highly trained opponents."
+    },
+
+    "Grandmaster": {
+        skill: 2500,
+        description: "Possesses extraordinary mastery of combat."
+    },
+
+    "Legendary": {
+        skill: 10000,
+        description: "A fighter whose abilities have become the stuff of legend."
+    },
+
+    "Mythical": {
+        skill: 50000,
+        description: "Combat ability beyond ordinary physical and technical limits."
+    },
+
+    "Transcendent": {
+        skill: 1000000,
+        description: "Combat mastery approaching supernatural perfection."
+    }
+
+};
 function showRaceCard() {
 
     const race = races[character.race];
@@ -1847,5 +1905,162 @@ function showIQCard() {
         .addEventListener(
             "click",
             showFightingSkillScreen
+        );
+}
+function showFightingSkillScreen() {
+
+    document.getElementById("iq-screen").innerHTML = `
+
+        <section id="fighting-skill-screen">
+
+            <h2>How skilled are you in combat?</h2>
+
+            <div class="roulette">
+
+                <div id="fighting-skill-display">
+                    READY
+                </div>
+
+            </div>
+
+            <button
+                id="spin-fighting-skill"
+                class="spin-button">
+
+                SPIN
+
+            </button>
+
+        </section>
+
+    `;
+
+    document
+        .getElementById("spin-fighting-skill")
+        .addEventListener(
+            "click",
+            spinFightingSkill
+        );
+}
+function spinFightingSkill() {
+
+    const skillNames =
+        Object.keys(fightingSkillLevels);
+
+    const display =
+        document.getElementById(
+            "fighting-skill-display"
+        );
+
+    const spinButton =
+        document.getElementById(
+            "spin-fighting-skill"
+        );
+
+    spinButton.disabled = true;
+
+    let spins = 0;
+    const totalSpins = 40;
+
+    const interval = setInterval(() => {
+
+        const randomSkill =
+            skillNames[
+                Math.floor(
+                    Math.random() *
+                    skillNames.length
+                )
+            ];
+
+        display.textContent = randomSkill;
+
+        spins++;
+
+        if (spins >= totalSpins) {
+
+            clearInterval(interval);
+
+            const finalSkill =
+                skillNames[
+                    Math.floor(
+                        Math.random() *
+                        skillNames.length
+                    )
+                ];
+
+            display.textContent =
+                finalSkill;
+
+            character.fightingSkill =
+                finalSkill;
+
+            console.log(
+                "Fighting skill selected:",
+                character
+            );
+
+            spinButton.disabled = false;
+
+            setTimeout(() => {
+                showFightingSkillCard();
+            }, 800);
+        }
+
+    }, 80);
+}
+function showFightingSkillCard() {
+
+    const skill =
+        fightingSkillLevels[
+            character.fightingSkill
+        ];
+
+    document.getElementById(
+        "fighting-skill-screen"
+    ).innerHTML = `
+
+        <div class="race-card">
+
+            <h2>
+                ${character.fightingSkill}
+            </h2>
+
+            <p class="race-description">
+                ${skill.description}
+            </p>
+
+            <div class="race-stats">
+
+                <div>
+
+                    <span>COMBAT SKILL</span>
+
+                    <strong>
+                        ${skill.skill.toLocaleString()}
+                    </strong>
+
+                </div>
+
+            </div>
+
+            <button
+                id="continue-fighting-skill"
+                class="spin-button">
+
+                CONTINUE
+
+            </button>
+
+        </div>
+
+    `;
+
+    document
+        .getElementById(
+            "continue-fighting-skill"
+        )
+        .addEventListener(
+            "click",
+            showWeaponScreen
         );
 }
