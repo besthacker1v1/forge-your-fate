@@ -752,6 +752,59 @@ const durabilityLevels = {
     }
 
 };
+const iqLevels = {
+
+    "Below Average": {
+        iq: 70,
+        description: "Struggles with complex reasoning and unfamiliar problems."
+    },
+
+    "Average": {
+        iq: 100,
+        description: "Normal human reasoning and problem-solving ability."
+    },
+
+    "Clever": {
+        iq: 115,
+        description: "Quick to understand situations and find practical solutions."
+    },
+
+    "Intelligent": {
+        iq: 130,
+        description: "Strong analytical and problem-solving ability."
+    },
+
+    "Genius": {
+        iq: 150,
+        description: "Exceptional intellectual ability far beyond the average person."
+    },
+
+    "Mastermind": {
+        iq: 180,
+        description: "Capable of constructing extremely complex plans."
+    },
+
+    "Tactical Genius": {
+        iq: 220,
+        description: "Exceptional ability to analyze opponents and predict their actions."
+    },
+
+    "Supergenius": {
+        iq: 300,
+        description: "Intelligence vastly exceeding conventional human limits."
+    },
+
+    "Ancient Wisdom": {
+        iq: 500,
+        description: "Thousands of years of accumulated knowledge and experience."
+    },
+
+    "Cosmic Intelligence": {
+        iq: 1000,
+        description: "Possesses knowledge and reasoning beyond conventional civilization."
+    }
+
+};
 function showRaceCard() {
 
     const race = races[character.race];
@@ -1662,5 +1715,137 @@ function showDurabilityCard() {
         .addEventListener(
             "click",
             showIQScreen
+        );
+}
+function showIQScreen() {
+
+    document.getElementById("durability-screen").innerHTML = `
+
+        <section id="iq-screen">
+
+            <h2>How intelligent are you?</h2>
+
+            <div class="roulette">
+
+                <div id="iq-display">
+                    READY
+                </div>
+
+            </div>
+
+            <button id="spin-iq" class="spin-button">
+                SPIN
+            </button>
+
+        </section>
+
+    `;
+
+    document
+        .getElementById("spin-iq")
+        .addEventListener("click", spinIQ);
+}
+function spinIQ() {
+
+    const iqNames =
+        Object.keys(iqLevels);
+
+    const display =
+        document.getElementById("iq-display");
+
+    const spinButton =
+        document.getElementById("spin-iq");
+
+    spinButton.disabled = true;
+
+    let spins = 0;
+    const totalSpins = 40;
+
+    const interval = setInterval(() => {
+
+        const randomIQ =
+            iqNames[
+                Math.floor(
+                    Math.random() * iqNames.length
+                )
+            ];
+
+        display.textContent = randomIQ;
+
+        spins++;
+
+        if (spins >= totalSpins) {
+
+            clearInterval(interval);
+
+            const finalIQ =
+                iqNames[
+                    Math.floor(
+                        Math.random() * iqNames.length
+                    )
+                ];
+
+            display.textContent = finalIQ;
+
+            character.iq = finalIQ;
+
+            console.log(
+                "IQ selected:",
+                character
+            );
+
+            spinButton.disabled = false;
+
+            setTimeout(() => {
+                showIQCard();
+            }, 800);
+        }
+
+    }, 80);
+}
+function showIQCard() {
+
+    const iq =
+        iqLevels[character.iq];
+
+    document.getElementById("iq-screen").innerHTML = `
+
+        <div class="race-card">
+
+            <h2>${character.iq}</h2>
+
+            <p class="race-description">
+                ${iq.description}
+            </p>
+
+            <div class="race-stats">
+
+                <div>
+                    <span>INTELLIGENCE VALUE</span>
+
+                    <strong>
+                        ${iq.iq.toLocaleString()}
+                    </strong>
+                </div>
+
+            </div>
+
+            <button
+                id="continue-iq"
+                class="spin-button">
+
+                CONTINUE
+
+            </button>
+
+        </div>
+
+    `;
+
+    document
+        .getElementById("continue-iq")
+        .addEventListener(
+            "click",
+            showFightingSkillScreen
         );
 }
