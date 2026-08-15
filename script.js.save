@@ -2799,7 +2799,13 @@ function finishCharacterCreation() {
 
     console.log("CHARACTER CREATED");
     console.log(character);
+console.log(
+    "AI CHARACTER PROMPT:"
+);
 
+console.log(
+    generateCharacterPrompt()
+);
     document.getElementById("title-screen").innerHTML = `
 
         <section id="character-complete">
@@ -3017,141 +3023,58 @@ function showCharacterCard() {
             startAdventure
         );
 }
-function startAdventure() {
+function generateCharacterPrompt() {
 
-    document.getElementById("character-complete").innerHTML = `
+    const prompt = `
+Create a detailed anime-style fantasy/sci-fi character portrait.
 
-        <section class="adventure-screen">
+CHARACTER IDENTITY:
+Name: ${character.name}
+Gender: ${character.gender}
+Race: ${character.race}
+Age: ${character.age} years
+Height: ${character.height} meters
 
-            <p class="card-label">
-                CHARACTER CREATION COMPLETE
-            </p>
+CHARACTER BACKGROUND:
+${character.background}
 
-            <h1>
-                ${character.name}
-            </h1>
+PERSONALITY:
+${character.personality}
 
-            <h2>
-                ${character.title}
-            </h2>
+PHYSICAL POWER:
+Strength: ${character.strength}
+Speed: ${character.speed}
+Durability: ${character.durability}
 
-            <p class="subtitle">
-                Your fate awaits.
-            </p>
+MENTAL ABILITY:
+IQ: ${character.iq}
 
-            <button
-                id="begin-world"
-                class="spin-button">
+COMBAT:
+Fighting Skill: ${character.fightingSkill}
 
-                ENTER THE WORLD
+WEAPON:
+${character.weapon}
 
-            </button>
+WEAPON MASTERY:
+${character.weaponMastery}
 
-        </section>
+TITLE:
+${character.title}
 
-    `;
+VISUAL DIRECTION:
+Create a visually distinctive character whose appearance reflects
+their race, personality, background, power level, weapon and title.
 
-    document
-        .getElementById("begin-world")
-        .addEventListener(
-            "click",
-            startWorld
-        );
-}
-function startWorld() {
+The character should be shown in a dramatic full-body pose.
 
-    document.getElementById("character-complete").innerHTML = `
+Include their weapon prominently.
 
-        <section class="adventure-screen">
+The visual style should resemble a high-quality anime fantasy
+or science-fiction game character illustration.
 
-            <h2>
-                WHAT DO YOU DO NOW?
-            </h2>
+Do not display text, statistics, labels, numbers, UI elements,
+watermarks or character cards inside the artwork.
+`;
 
-            <div class="roulette">
-
-                <div id="action-display">
-                    READY
-                </div>
-
-            </div>
-
-            <button
-                id="spin-action"
-                class="spin-button">
-
-                SPIN
-
-            </button>
-
-        </section>
-
-    `;
-
-    document
-        .getElementById("spin-action")
-        .addEventListener(
-            "click",
-            spinAction
-        );
-}
-function spinAction() {
-
-    const actions = [
-        "Explore the world",
-        "Train",
-        "Search for treasure",
-        "Fight a beast",
-        "Join an organization",
-        "Help a stranger",
-        "Explore ancient ruins",
-        "Build a settlement"
-    ];
-
-    const display =
-        document.getElementById("action-display");
-
-    const button =
-        document.getElementById("spin-action");
-
-    button.disabled = true;
-
-    let spins = 0;
-
-    const interval = setInterval(() => {
-
-        const randomAction =
-            actions[
-                Math.floor(
-                    Math.random() * actions.length
-                )
-            ];
-
-        display.textContent = randomAction;
-
-        spins++;
-
-        if (spins >= 30) {
-
-            clearInterval(interval);
-
-            const finalAction =
-                actions[
-                    Math.floor(
-                        Math.random() * actions.length
-                    )
-                ];
-
-            display.textContent =
-                finalAction;
-
-            button.disabled = false;
-
-            console.log(
-                "Action selected:",
-                finalAction
-            );
-        }
-
-    }, 80);
+    return prompt.trim();
 }
